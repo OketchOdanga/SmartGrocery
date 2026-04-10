@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'rea
 import { usePantry } from '../contexts/PantryContext';
 import { useAuth } from '../contexts/AuthContext';
 import { isExpired, isExpiringSoon, isLowStock } from '../utils/helpers';
+import { diffInDaysFromToday } from '../utils/date';
 
 export default function DashboardScreen() {
   const { items } = usePantry();
@@ -33,7 +34,7 @@ export default function DashboardScreen() {
       if (isExpired(item.expirationDate)) {
         newAlerts.push({ id: item.id, message: `${item.name} has expired!`, type: 'error' });
       } else if (isExpiringSoon(item.expirationDate)) {
-        const days = Math.ceil((new Date(item.expirationDate) - new Date()) / (1000*60*60*24));
+        const days = diffInDaysFromToday(item.expirationDate);
         newAlerts.push({ id: item.id, message: `${item.name} expires in ${days} days`, type: 'warning' });
       }
       if (isLowStock(item.quantity)) {

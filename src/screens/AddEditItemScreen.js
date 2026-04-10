@@ -67,7 +67,7 @@ export default function AddEditItemScreen({ visible, onClose, item }) {
     }
 
     const quantityNum = parseInt(formData.quantity);
-    if (isNaN(quantityNum) || quantityNum < 0) {
+    if (isNaN(quantityNum) || quantityNum <= 0) {
       Alert.alert('Error', 'Quantity must be a positive number');
       return;
     }

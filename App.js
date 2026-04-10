@@ -14,18 +14,6 @@ import { View, ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// Temporary Dashboard until we build it
-function TempDashboard({ navigation }) {
-  const { logout } = useAuth();
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 24, marginBottom: 20 }}>Dashboard (coming soon)</Text>
-      <TouchableOpacity onPress={logout} style={{ backgroundColor: '#f44336', padding: 12, borderRadius: 8 }}>
-        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Logout</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 function AppTabs() {
   return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { usePantry } from '../contexts/PantryContext';
 import AddEditItemScreen from './AddEditItemScreen';
+import { formatDisplayDate } from '../utils/date';
 
 export default function PantryListScreen() {
   const { items, deleteItem } = usePantry();
@@ -38,7 +39,7 @@ export default function PantryListScreen() {
         <Text style={styles.quantity}>Qty: {item.quantity}</Text>
       </View>
       <Text style={styles.detail}>Category: {item.category}</Text>
-      <Text style={styles.detail}>Expires: {new Date(item.expirationDate).toLocaleDateString()}</Text>
+      <Text style={styles.detail}>Expires: {formatDisplayDate(item.expirationDate)}</Text>
       <View style={styles.buttonRow}>
         <TouchableOpacity 
           style={[styles.smallButton, styles.editButton]} 
