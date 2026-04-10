@@ -13,8 +13,9 @@ export default function LoginScreen({ navigation }) {
       return;
     }
     try {
-      await login(email, password);
+      await login(email.trim(), password);
     } catch (error) {
+      console.log('Login error:', error.code, error.message);
       Alert.alert('Login Failed', error.message);
     }
   };

@@ -17,8 +17,10 @@ export default function SignupScreen({ navigation }) {
       return;
     }
     try {
-      await signup(email, password);
+      await signup(email.trim(), password);
     } catch (error) {
+      console.log('Signup error:', error.code, error.message);
+
       Alert.alert('Signup Failed', error.message);
     }
   };

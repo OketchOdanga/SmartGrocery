@@ -24,15 +24,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email.trim(), password);
+
   };
 
   const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email.trim(), password);
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout =  async() => {
+    await signOut(auth);
   };
 
   const value = { user, loading, login, signup, logout };

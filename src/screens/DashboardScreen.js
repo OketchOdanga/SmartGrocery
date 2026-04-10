@@ -32,13 +32,13 @@ export default function DashboardScreen() {
     const newAlerts = [];
     items.forEach(item => {
       if (isExpired(item.expirationDate)) {
-        newAlerts.push({ id: item.id, message: `${item.name} has expired!`, type: 'error' });
+        newAlerts.push({ id: `${item.id}-expired`, message: `${item.name} has expired!`, type: 'error' });
       } else if (isExpiringSoon(item.expirationDate)) {
         const days = diffInDaysFromToday(item.expirationDate);
-        newAlerts.push({ id: item.id, message: `${item.name} expires in ${days} days`, type: 'warning' });
+        newAlerts.push({ id: `${item.id}-expiring`, message: `${item.name} expires in ${days} days`, type: 'warning' });
       }
       if (isLowStock(item.quantity)) {
-        newAlerts.push({ id: item.id, message: `${item.name} is low (${item.quantity} left)`, type: 'warning' });
+        newAlerts.push({ id: `${item.id}-low`, message: `${item.name} is low (${item.quantity} left)`, type: 'warning' });
       }
     });
     setAlerts(newAlerts);
@@ -47,9 +47,19 @@ export default function DashboardScreen() {
   const handleLogout = () => {
     Alert.alert('Logout', 'Are you sure?', [
       { text: 'Cancel', style: 'cancel' },
-      { text: 'Logout', onPress: logout }
-    ]);
-  };
+      {
+        text: 'Logout',
+        onPress: async () => {
+          try {
+            await logout();
+          } catch (error) {
+            console.log('Logout error:', error.code, error.message);
+            Alert.alert('Logout Failed', error.message);
+          }
+        }
+       }
+      ]);
+    };
 
   return (
     <ScrollView style={styles.container}>
